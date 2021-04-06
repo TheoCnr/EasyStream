@@ -8,14 +8,14 @@
             "type": "java",
             "name": "Launch Current File",
             "request": "launch",
-            "vmArgs": "--module-path /Users/theocanario/CCorp/EasyStream/lib/lib --add-modules javafx.controls,javafx.fxml", 
+            "vmArgs": "--module-path /Users/theocanario/CCorp/EasyStream/lib/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml", 
             "mainClass": "${file}"
         },
         {
             "type": "java",
             "name": "Launch App",
             "request": "launch",
-            "vmArgs": "--module-path /Users/theocanario/CCorp/EasyStream/lib/lib --add-modules javafx.controls,javafx.fxml",
+            "vmArgs": "--module-path /Users/theocanario/CCorp/EasyStream/lib/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml",
             "mainClass": "main.App",
             "projectName": "EasyStream_7278ba80"
         },
@@ -23,7 +23,7 @@
             "type": "java",
             "name": "Launch MediaPlaverView",
             "request": "launch",
-            "vmArgs": "--module-path /Users/theocanario/CCorp/EasyStream/lib/lib --add-modules javafx.controls,javafx.fxml",
+            "vmArgs": "--module-path /Users/theocanario/CCorp/EasyStream/lib/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml",
             "mainClass": "main.views.MediaPlaverView",
             "projectName": "EasyStream_7278ba80"
         }
