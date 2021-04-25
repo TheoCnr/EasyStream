@@ -30,8 +30,8 @@ public class TheMovieDB {
         try {
             HttpResponse<JsonNode> request = Unirest.get(this.API_URL + "/movie/popular")
                     .queryString("api_key", this.API_KEY)
-                    .queryString("language", "pt-BR")
-                    .queryString("region", "BR")
+                    .queryString("language", "fr")
+                    .queryString("region", "FR")
                     .asJson();
             
             JSONObject responsejson = request.getBody().getObject();
@@ -43,7 +43,7 @@ public class TheMovieDB {
                  moveList.add(
                          new Movie(
                                  results.getJSONObject(i).optInt("id"),
-                                 results.getJSONObject(i).getString("original_title"),
+                                 results.getJSONObject(i).getString("title"),
                                  results.getJSONObject(i).getString("poster_path"),
                                  results.getJSONObject(i).getString("overview")
                          )

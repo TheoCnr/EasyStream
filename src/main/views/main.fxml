@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="823.0" prefWidth="1247.0" style="-fx-background-color: #202325;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.views.MainFXML">
+   <children>
+      <AnchorPane prefHeight="72.0" prefWidth="1247.0" style="-fx-background-color: #141819;">
+         <children>
+            <ImageView fitHeight="87.0" fitWidth="208.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../ressources/logo.png" />
+               </image>
+            </ImageView>
+            <JFXButton fx:id="browse_btn" layoutX="296.0" layoutY="16.0" prefHeight="41.0" prefWidth="118.0" style="-fx-background-color: #202325;" text="Browse file" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="31.0" layoutY="101.0" prefHeight="248.0" prefWidth="1168.0">
+         <children>
+            <JFXScrollPane prefHeight="205.0" prefWidth="1168.0">
+               <children>
+                  <JFXListView fx:id="first_scroll" orientation="HORIZONTAL" prefHeight="225.0" prefWidth="1168.0" />
+               </children>
+            </JFXScrollPane>
+         </children></AnchorPane>
+   </children>
+</AnchorPane>
