@@ -62,6 +62,7 @@ public class MainFXML {
             VlcjJavaFxApplication player = new VlcjJavaFxApplication();
             Stage primaryStage = (Stage) ((Node)click.getSource()).getScene().getWindow();
             player.init();
+            player.setFile(selectedFile);
             try {
                 player.start(primaryStage);
             } catch (Exception e) {

@@ -28,6 +28,8 @@ public class VlcjJavaFxApplication extends Application {
 
     private ImageView videoImageView;
 
+    private File file;
+
 
     public MediaPlayerFactory getMediaPlayerFactory() {
         return this.mediaPlayerFactory;
@@ -70,6 +72,11 @@ public class VlcjJavaFxApplication extends Application {
         embeddedMediaPlayer.videoSurface().set(videoSurfaceForImageView(this.videoImageView));
     }
 
+    public void setFile(File file)
+    {
+        this.file = file;
+    }
+
     @Override
     public final void start(Stage primaryStage) throws Exception {
         // List<String> params = getParameters().getRaw();
@@ -101,8 +108,8 @@ public class VlcjJavaFxApplication extends Application {
         primaryStage.show();
 
         //embeddedMediaPlayer.media().play(params.get(0));
-        embeddedMediaPlayer.media().play("/Users/theocanario/Downloads/Titanic - 1080p FR EN x264 ac3 mHDgz.mkv");
-        //embeddedMediaPlayer.media().play(file.getAbsolutePath());
+        //embeddedMediaPlayer.media().play("/Users/theocanario/Downloads/Titanic - 1080p FR EN x264 ac3 mHDgz.mkv");
+        embeddedMediaPlayer.media().play(file.getAbsolutePath());
 
         embeddedMediaPlayer.controls().setPosition(0.4f);
     }
