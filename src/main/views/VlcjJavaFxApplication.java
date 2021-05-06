@@ -15,6 +15,8 @@ import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
 import static uk.co.caprica.vlcj.javafx.videosurface.ImageViewVideoSurfaceFactory.videoSurfaceForImageView;
 
+import java.io.File;
+
 /**
  *
  */
@@ -25,6 +27,18 @@ public class VlcjJavaFxApplication extends Application {
     private final EmbeddedMediaPlayer embeddedMediaPlayer;
 
     private ImageView videoImageView;
+
+
+    public MediaPlayerFactory getMediaPlayerFactory() {
+        return this.mediaPlayerFactory;
+    }
+    public EmbeddedMediaPlayer getEmbeddedMediaPlayer() {
+        return this.embeddedMediaPlayer;
+    }
+    public ImageView getVideoImageView() {
+        return this.videoImageView;
+    }
+
 
     public VlcjJavaFxApplication() {
         this.mediaPlayerFactory = new MediaPlayerFactory();
@@ -71,13 +85,13 @@ public class VlcjJavaFxApplication extends Application {
         videoImageView.fitWidthProperty().bind(root.widthProperty());
         videoImageView.fitHeightProperty().bind(root.heightProperty());
 
-        root.widthProperty().addListener((observableValue, oldValue, newValue) -> {
-            // If you need to know about resizes
-        });
+        // root.widthProperty().addListener((observableValue, oldValue, newValue) -> {
+        //     // If you need to know about resizes
+        // });
 
-        root.heightProperty().addListener((observableValue, oldValue, newValue) -> {
-            // If you need to know about resizes
-        });
+        // root.heightProperty().addListener((observableValue, oldValue, newValue) -> {
+        //     // If you need to know about resizes
+        // });
 
         root.setCenter(videoImageView);
 
@@ -88,6 +102,7 @@ public class VlcjJavaFxApplication extends Application {
 
         //embeddedMediaPlayer.media().play(params.get(0));
         embeddedMediaPlayer.media().play("/Users/theocanario/Downloads/Titanic - 1080p FR EN x264 ac3 mHDgz.mkv");
+        //embeddedMediaPlayer.media().play(file.getAbsolutePath());
 
         embeddedMediaPlayer.controls().setPosition(0.4f);
     }
