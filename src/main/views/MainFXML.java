@@ -4,17 +4,27 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
+
+//import java.awt.Image;
+import javafx.scene.image.Image;
+import java.awt.image.BufferedImage;
+
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import main.Movie;
@@ -34,7 +44,7 @@ public class MainFXML {
     private JFXButton browse_btn;
 
     @FXML
-    private JFXListView<String> first_scroll;
+    private JFXListView<String> first_scroll = new JFXListView<String>();
 
     @FXML
     void initialize() {
@@ -48,9 +58,40 @@ public class MainFXML {
         list.removeAll(list);
         TheMovieDB.getIntance().refresh();
         for (Movie movie : TheMovieDB.getIntance().getMovies()) {
-            list.addAll(movie.getTitle());
+            list.addAll(movie.getThumUrl());
         }
+
         first_scroll.getItems().addAll(list);
+
+        // for (Movie movie : TheMovieDB.getIntance().getMovies()) {
+        // System.out.println("https://image.tmdb.org/t/p/w500/" + movie.getThumUrl());
+        // }
+
+        first_scroll.setCellFactory(listView -> new ListCell<String>() {
+            private ImageView imageView = new ImageView();
+
+            @Override
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+
+                } else {
+                    // BufferedImage img;
+                    Image img;
+                    // img = ImageIO.read(new URL("https://image.tmdb.org/t/p/w500/" +
+                    // movie.getThumUrl()));
+                    // System.out.println("https://image.tmdb.org/t/p/w500/" + movie.getThumUrl());
+                    // javafx.scene.image.Image image = SwingFXUtils.toFXImage(img, null);
+                    img = new Image("https://image.tmdb.org/t/p/w500/" + item);
+                    imageView.setImage(img);
+                    imageView.setFitHeight(180);
+                    imageView.setPreserveRatio(true);
+                    setGraphic(imageView);
+
+                }
+            }
+        });
     }
 
     public void file_choose(ActionEvent click) {
@@ -60,7 +101,7 @@ public class MainFXML {
 
         if (selectedFile != null) {
             VlcjJavaFxApplication player = new VlcjJavaFxApplication();
-            Stage primaryStage = (Stage) ((Node)click.getSource()).getScene().getWindow();
+            Stage primaryStage = (Stage) ((Node) click.getSource()).getScene().getWindow();
             player.init();
             player.setFile(selectedFile);
             try {

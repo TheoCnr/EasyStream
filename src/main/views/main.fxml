@@ -23,7 +23,7 @@
          <children>
             <JFXScrollPane prefHeight="205.0" prefWidth="1168.0">
                <children>
-                  <JFXListView fx:id="first_scroll" orientation="HORIZONTAL" prefHeight="225.0" prefWidth="1168.0" />
+                  <JFXListView fx:id="first_scroll" orientation="HORIZONTAL" prefHeight="225.0" prefWidth="1168.0" style="-fx-background-color: #202325 #202325;" />
                </children>
             </JFXScrollPane>
          </children></AnchorPane>
