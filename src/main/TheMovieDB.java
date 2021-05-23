@@ -54,6 +54,33 @@ public class TheMovieDB {
             ex.printStackTrace();
         }
     }
+
+    public Movie search(String name, int year)
+    {
+        try {
+            HttpResponse<JsonNode> request = Unirest.get(this.API_URL + "/search/movie")
+                    .queryString("api_key", this.API_KEY)
+                    .queryString("language", "fr")
+                    .queryString("region", "FR")
+                    .queryString("query", name)
+                    .queryString("year", year)
+                    .asJson();
+            
+            JSONObject responsejson = request.getBody().getObject();
+            JSONArray results = responsejson.getJSONArray("results");
+            Movie film = new Movie(
+                results.getJSONObject(0).optInt("id"),
+                results.getJSONObject(0).getString("title"),
+                results.getJSONObject(0).getString("poster_path"),
+                results.getJSONObject(0).getString("overview"));
+            
+            return film;
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
     
     public ArrayList<Movie> getMovies() {
         return this.moveList;
