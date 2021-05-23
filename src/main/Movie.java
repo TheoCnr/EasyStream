@@ -5,6 +5,15 @@ public class Movie {
     private String title;
     private String thumUrl;
     private String description;
+    private String path;
+
+    public String getPath() {
+        return this.path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     public Movie(int id, String title, String thumUrl, String description) {
         this.id = id;

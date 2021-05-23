@@ -3,6 +3,8 @@ package main.views;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 
+import org.apache.commons.codec.binary.StringUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -20,7 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
-
+import javafx.scene.input.MouseEvent;
 //import java.awt.Image;
 import javafx.scene.image.Image;
 import java.awt.image.BufferedImage;
@@ -48,10 +50,31 @@ public class MainFXML {
     private JFXListView<String> first_scroll = new JFXListView<String>();
 
     @FXML
-    private JFXListView<String> sec_scroll;
+    private JFXListView<Movie> sec_scroll;
 
     @FXML
     private JFXButton find_mov;
+
+    @FXML public void handleMouseClick(MouseEvent arg0) {
+        if(arg0.getClickCount() == 2)
+        {
+            VlcjJavaFxApplication player = new VlcjJavaFxApplication();
+            Stage primaryStage = (Stage) ((Node) arg0.getSource()).getScene().getWindow();
+            player.init();
+            player.setFile(new File(sec_scroll.getSelectionModel().getSelectedItem().getPath()));
+            try {
+                player.start(primaryStage);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            
+            System.out.println("Double clicked");
+            System.out.println("clicked on " + sec_scroll.getSelectionModel().getSelectedItem().getPath());
+        }
+        
+        
+    }
 
     @FXML
     void initialize() {
@@ -72,6 +95,7 @@ public class MainFXML {
 
         if (file != null) 
         {
+            System.out.println(file.getAbsolutePath() + "\n \n \n");
             findMovies(file);
         }
     }
@@ -82,25 +106,55 @@ public class MainFXML {
         {
             if (!file.isDirectory()) 
             {   
+                String title = "";
+                String year = "";
+                
+                for (char c : file.getName().toCharArray()) 
+                {
+                    if (year.length() > 0 && year.length() < 4 && c == '.') 
+                    {
+                        title += year;
+                        year = "";
+                    }
+                    if (year.length() == 4) 
+                    {
+                        break;
+                    }
+                    if (c >= '0' && c <= '9') 
+                    {
+                        year += c;
+                    }
+                    else
+                    {
+                        title += c;
+                    }
+                }
+                title = title.replace(".", " ");
+
+                System.out.println(title);
+                System.out.println(year);
+
+                ObservableList<Movie> list = FXCollections.observableArrayList();
+
                 Movie film = TheMovieDB.getIntance()
-                                .search(file.getName().substring(0, 5), 
-                                    Integer.parseInt(file.getName().substring(6)));
+                                .search(title, Integer.parseInt(year));
+                film.setPath(file.getAbsolutePath());
                 list.removeAll(list);
-                list.addAll(film.getThumUrl());
+                list.addAll(film);
                 sec_scroll.getItems().addAll(list);
 
-                sec_scroll.setCellFactory(listView -> new ListCell<String>() {
+                sec_scroll.setCellFactory(listView -> new ListCell<Movie>() {
                     private ImageView imageView = new ImageView();
         
                     @Override
-                    public void updateItem(String item, boolean empty) {
+                    public void updateItem(Movie item, boolean empty) {
                         super.updateItem(item, empty);
                         if (empty) {
                             setGraphic(null);
         
                         } else {
                             Image img;
-                            img = new Image("https://image.tmdb.org/t/p/w500/" + item);
+                            img = new Image("https://image.tmdb.org/t/p/w500/" + item.getThumUrl());
                             imageView.setImage(img);
                             imageView.setFitHeight(180);
                             imageView.setPreserveRatio(true);
